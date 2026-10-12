@@ -17,6 +17,6 @@ describe("App routing", () => {
 
   it.each(["/connexion", "/inscription", "/tableau-de-bord", "/outils", "/historique", "/premium"])("matches the requested page %s", (path) => {
     const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
-    expect(router.matchRoutes(path).at(-1)?.routeId).toBe(path);
+    expect(router.matchRoutes(path).at(-1)?.fullPath).toBe(path);
   });
 });
