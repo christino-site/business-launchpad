@@ -13,3 +13,4 @@
 - Use TanStack file routes for each page and a shared shell in the root route so navigation and page metadata remain independent.
 - Keep this prototype presentation-only: shared typed demo data lives in a browser-safe module, with no persistence or authentication calls, to allow later service integration without misleading users.
 - Use the shared design system and Button component for interactive controls; global semantic tokens own all visual colors.
+- Private pages live under src/routes/_authenticated/ (client-only gate redirecting to /connexion); every user-owned table carries user_id with owner-only RLS, so access control never depends on client code.
