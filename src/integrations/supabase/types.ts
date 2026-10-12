@@ -14,7 +14,135 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      invoices: {
+        Row: {
+          client_name: string
+          created_at: string
+          id: string
+          issued_on: string
+          items: Json
+          number: string
+          status: string
+          total_fcfa: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          client_name: string
+          created_at?: string
+          id?: string
+          issued_on?: string
+          items?: Json
+          number: string
+          status?: string
+          total_fcfa?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          client_name?: string
+          created_at?: string
+          id?: string
+          issued_on?: string
+          items?: Json
+          number?: string
+          status?: string
+          total_fcfa?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      operations: {
+        Row: {
+          amount_fcfa: number | null
+          created_at: string
+          details: Json
+          id: string
+          label: string
+          tool: string
+          user_id: string
+        }
+        Insert: {
+          amount_fcfa?: number | null
+          created_at?: string
+          details?: Json
+          id?: string
+          label: string
+          tool: string
+          user_id?: string
+        }
+        Update: {
+          amount_fcfa?: number | null
+          created_at?: string
+          details?: Json
+          id?: string
+          label?: string
+          tool?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      quotes: {
+        Row: {
+          client_name: string
+          created_at: string
+          id: string
+          items: Json
+          number: string
+          status: string
+          total_fcfa: number
+          updated_at: string
+          user_id: string
+          valid_until: string | null
+        }
+        Insert: {
+          client_name: string
+          created_at?: string
+          id?: string
+          items?: Json
+          number: string
+          status?: string
+          total_fcfa?: number
+          updated_at?: string
+          user_id?: string
+          valid_until?: string | null
+        }
+        Update: {
+          client_name?: string
+          created_at?: string
+          id?: string
+          items?: Json
+          number?: string
+          status?: string
+          total_fcfa?: number
+          updated_at?: string
+          user_id?: string
+          valid_until?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

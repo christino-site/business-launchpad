@@ -10,7 +10,7 @@
 
 - [x] Activer le backend hébergé (Lovable Cloud) et vérifier qu'il répond.
 - [x] Activer la connexion par e-mail et mot de passe.
-- [ ] Remplacer les écrans de démonstration par l'inscription, la connexion et la déconnexion réelles.
-- [ ] Créer les tables profils, factures, devis et historique avec le propriétaire de chaque donnée.
-- [ ] Écrire les règles de sécurité pour que chacun n'accède qu'à ses propres données.
-- [ ] Rendre le tableau de bord privé et afficher clairement les erreurs de chargement et de sauvegarde.
+- [x] Remplacer les écrans de démonstration par l'inscription, la connexion et la déconnexion réelles.
+- [x] Créer les tables profils, factures, devis et historique avec le propriétaire de chaque donnée.
+- [x] Écrire les règles de sécurité pour que chacun n'accède qu'à ses propres données.
+- [x] Rendre le tableau de bord privé et afficher clairement les erreurs de chargement et de sauvegarde.
