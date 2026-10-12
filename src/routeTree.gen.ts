@@ -15,7 +15,6 @@ import { Route as HistoriqueRouteImport } from './routes/historique'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as OutilsRouteImport } from './routes/outils'
 import { Route as PremiumRouteImport } from './routes/premium'
-import { Route as TableauDeBordRouteImport } from './routes/tableau-de-bord'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -47,11 +46,6 @@ const PremiumRoute = PremiumRouteImport.update({
   path: '/premium',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TableauDeBordRoute = TableauDeBordRouteImport.update({
-  id: '/tableau-de-bord',
-  path: '/tableau-de-bord',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,7 +54,6 @@ export interface FileRoutesByFullPath {
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
-  '/tableau-de-bord': typeof TableauDeBordRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +62,6 @@ export interface FileRoutesByTo {
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
-  '/tableau-de-bord': typeof TableauDeBordRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,27 +71,14 @@ export interface FileRoutesById {
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
-  '/tableau-de-bord': typeof TableauDeBordRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/connexion'
-    | '/historique'
-    | '/inscription'
-    | '/outils'
-    | '/premium'
-    | '/tableau-de-bord'
+    '/' | '/connexion' | '/historique' | '/inscription' | '/outils' | '/premium'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/connexion'
-    | '/historique'
-    | '/inscription'
-    | '/outils'
-    | '/premium'
-    | '/tableau-de-bord'
+    '/' | '/connexion' | '/historique' | '/inscription' | '/outils' | '/premium'
   id:
     | '__root__'
     | '/'
@@ -108,7 +87,6 @@ export interface FileRouteTypes {
     | '/inscription'
     | '/outils'
     | '/premium'
-    | '/tableau-de-bord'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,7 +96,6 @@ export interface RootRouteChildren {
   InscriptionRoute: typeof InscriptionRoute
   OutilsRoute: typeof OutilsRoute
   PremiumRoute: typeof PremiumRoute
-  TableauDeBordRoute: typeof TableauDeBordRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -165,13 +142,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PremiumRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tableau-de-bord': {
-      id: '/tableau-de-bord'
-      path: '/tableau-de-bord'
-      fullPath: '/tableau-de-bord'
-      preLoaderRoute: typeof TableauDeBordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -182,7 +152,6 @@ const rootRouteChildren: RootRouteChildren = {
   InscriptionRoute: InscriptionRoute,
   OutilsRoute: OutilsRoute,
   PremiumRoute: PremiumRoute,
-  TableauDeBordRoute: TableauDeBordRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
