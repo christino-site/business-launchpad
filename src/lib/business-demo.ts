@@ -1,6 +1,6 @@
 import { Calculator, FileText, MessageSquareText, Link2, Ruler } from 'lucide-react';
 
-export const prototype = { authentication: false, persistence: false, payments: false, currency: 'FCFA' } as const;
+export const prototype = { authentication:true, persistence:true, payments: false, currency: 'FCFA' } as const;
 export const tools = [
  { id:'benefice', name:'Calculateur de bénéfice', description:'Estimez vos marges et votre bénéfice pour prendre les bonnes décisions.', icon:Calculator, tone:'bg-secondary text-primary', detail:'Prix de vente, coût d’achat, charges et quantité : les éléments de votre futur calcul de bénéfice.' },
  { id:'factures', name:'Factures et devis', description:'Préparez des documents professionnels pour vos clients, en toute simplicité.', icon:FileText, tone:'bg-blue-soft text-blue', detail:'Coordonnées, articles, quantités et montants en FCFA : la future interface de vos factures et devis.' },

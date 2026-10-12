@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { prototype, demoHistory } from '@/lib/business-demo';
 
 describe('Version 1 boundaries', () => {
-  it('does not enable real authentication', () => expect(prototype.authentication).toBe(false));
-  it('does not enable data persistence', () => expect(prototype.persistence).toBe(false));
+  it('enables real authentication', () => expect(prototype.authentication).toBe(true));
+  it('enables data persistence', () => expect(prototype.persistence).toBe(true));
   it('does not enable real payments', () => expect(prototype.payments).toBe(false));
   it('uses FCFA as the reference currency', () => expect(prototype.currency).toBe('FCFA'));
   it('keeps history identifiers distinct as examples', () => {
