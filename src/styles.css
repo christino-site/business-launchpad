@@ -93,6 +93,8 @@
 .auth-form label { font-size:12px; font-weight:600; display:block; margin:20px 0 8px; }
 .form-input { width:100%; height:44px; border:1px solid var(--border); border-radius:6px; padding:0 12px; background:var(--card); outline:none; }
 .form-input:focus { border-color:var(--primary); box-shadow:0 0 0 2px var(--secondary); }
+.history-search { min-width: 250px; }
+.form-input.search-input { padding-left: 40px; }
 .demo-table { border:1px solid var(--border); background:var(--card); border-radius:8px; overflow:auto; }
 .demo-table table { width:100%; border-collapse:collapse; text-align:left; white-space:nowrap; }
 .demo-table th { color:var(--muted-foreground); font-size:11px; font-weight:600; background:var(--muted); padding:15px 20px; }
