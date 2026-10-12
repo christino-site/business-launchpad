@@ -5,3 +5,12 @@
 - [x] Identifier les exemples fictifs et garder connexion, sauvegarde et paiement inactifs.
 - [x] Vérifier navigation et affichage sur ordinateur et téléphone.
 - [x] Présenter les pages et les étapes suivantes sans ajouter de fonctions.
+
+## Étape 2 — Backend et authentification
+
+- [x] Activer le backend hébergé (Lovable Cloud) et vérifier qu'il répond.
+- [x] Activer la connexion par e-mail et mot de passe.
+- [ ] Remplacer les écrans de démonstration par l'inscription, la connexion et la déconnexion réelles.
+- [ ] Créer les tables profils, factures, devis et historique avec le propriétaire de chaque donnée.
+- [ ] Écrire les règles de sécurité pour que chacun n'accède qu'à ses propres données.
+- [ ] Rendre le tableau de bord privé et afficher clairement les erreurs de chargement et de sauvegarde.
