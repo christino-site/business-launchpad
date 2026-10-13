@@ -2,7 +2,7 @@
 export const toNum = (v: string | number) => { const s = String(v).trim().replace(',', '.'); return s === '' ? NaN : Number(s); };
 export function fmt(n: number, d = 2) {
   if (!Number.isFinite(n)) return '—';
-  const a = Number(Math.abs(n).toFixed(d)); const [i, r] = String(a).split('.');
+  const a = Number(Math.abs(n).toFixed(d)); const [i = '0', r] = String(a).split('.');
   return (n < 0 && a !== 0 ? '-' : '') + i.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + (r ? ',' + r : '');
 }
 export const fcfa = (n: number) => `${fmt(n)} FCFA`;
@@ -26,7 +26,7 @@ export function computeInvoice(items: LineItem[], discount: number, delivery: nu
 /* ---------- Générateur WhatsApp ---------- */
 type Field = { id: string; label: string; req?: boolean; type?: 'number'; placeholder?: string };
 const f = (id: string, label: string, o: Partial<Field> = {}): Field => ({ id, label, ...o });
-type V = Record<string, string>;
+type V = Partial<Record<'client'|'entreprise'|'offre'|'produit'|'prix'|'validite'|'quantite'|'livraison'|'paiement'|'montant'|'moyen'|'transport'|'suivi'|'arrivee'|'quand'|'lieu'|'reste'|'sujet'|'date'|'promo'|'ancien'|'fin'|'lien', string>>;
 const money = (v?: string) => { const n = toNum(v ?? ''); return Number.isFinite(n) ? fcfa(n) : ''; };
 const hi = (e: V) => 'Bonjour' + (e.client ? ' ' + e.client : '') + ' 👋';
 const ln = (k: string, v?: string) => (v ? `${k} : ${v}` : null);
@@ -59,7 +59,7 @@ export const waLink = (phone: string, msg = '') => { const n = cleanPhone(phone)
 
 /* ---------- Convertisseur ---------- */
 type Unit = [string, string, number?];
-const LEN: Record<string, Unit> = { mm: ['Millimètre', 'mm', 0.001], cm: ['Centimètre', 'cm', 0.01], m: ['Mètre', 'm', 1], km: ['Kilomètre', 'km', 1e3], in: ['Pouce', 'in', 0.0254], ft: ['Pied', 'ft', 0.3048], yd: ['Yard', 'yd', 0.9144], mi: ['Mile', 'mi', 1609.344] };
+const LEN = { mm: ['Millimètre', 'mm', 0.001], cm: ['Centimètre', 'cm', 0.01], m: ['Mètre', 'm', 1], km: ['Kilomètre', 'km', 1e3], in: ['Pouce', 'in', 0.0254], ft: ['Pied', 'ft', 0.3048], yd: ['Yard', 'yd', 0.9144], mi: ['Mile', 'mi', 1609.344] } satisfies Record<string, Unit>;
 export const CONVERTER: Record<string, { label: string; units: Record<string, Unit>; def: { value: string; value2?: string; from: string; to: string }; pair?: boolean }> = {
   length: { label: '📐 Longueur', units: LEN, def: { value: '100', from: 'cm', to: 'm' } },
   mass: { label: '⚖️ Poids / masse', units: { mg: ['Milligramme', 'mg', 1e-6], g: ['Gramme', 'g', 0.001], kg: ['Kilogramme', 'kg', 1], t: ['Tonne', 't', 1e3], oz: ['Once', 'oz', 0.028349523125], lb: ['Livre', 'lb', 0.45359237] }, def: { value: '1000', from: 'g', to: 'kg' } },
@@ -70,13 +70,14 @@ export const CONVERTER: Record<string, { label: string; units: Record<string, Un
 };
 export function convert(v: number, from: string, to: string, cat: string) {
   if (cat === 'temperature') { const c = from === 'c' ? v : from === 'f' ? ((v - 32) * 5) / 9 : v - 273.15; return to === 'c' ? c : to === 'f' ? (c * 9) / 5 + 32 : c + 273.15; }
-  const u = CONVERTER[cat].units; return (v * (u[from][2] as number)) / (u[to][2] as number);
+  const u = CONVERTER[cat]?.units; const a = u?.[from]?.[2], b = u?.[to]?.[2];
+  return a == null || b == null ? NaN : (v * a) / b;
 }
 export function fmtConv(n: number, d = 4) {
   if (!Number.isFinite(n)) return '—';
   const x = Number(n.toPrecision(12)); if (x === 0) return '0';
   const a = Math.abs(x);
   if (a < 1e-6 || a >= 1e15) return Number(x.toPrecision(5)).toExponential().replace('e+', 'e').replace('.', ',').replace('e', ' × 10^');
-  const r = a < 1 ? Number(a.toPrecision(d + 2)) : Number(a.toFixed(d)); const [i, dec] = String(r).split('.');
+  const r = a < 1 ? Number(a.toPrecision(d + 2)) : Number(a.toFixed(d)); const [i = '0', dec] = String(r).split('.');
   return (x < 0 ? '-' : '') + i.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + (dec ? ',' + dec : '');
 }
