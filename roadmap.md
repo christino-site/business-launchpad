@@ -14,3 +14,8 @@
 - [x] Créer les tables profils, factures, devis et historique avec le propriétaire de chaque donnée.
 - [x] Écrire les règles de sécurité pour que chacun n'accède qu'à ses propres données.
 - [x] Rendre le tableau de bord privé et afficher clairement les erreurs de chargement et de sauvegarde.
+
+## Étape 3 — Outils et données réelles
+- [ ] Rendre les cinq outils utilisables et relier leur enregistrement au compte.
+- [ ] Ajouter les listes privées de factures et devis et remplacer l’historique fictif.
+- [ ] Vérifier les destinations, les erreurs et la relecture après reconnexion.
