@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AlertCircle, Trash2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -57,8 +57,8 @@ function Dashboard(){
  {summary.error&&<ErrorBox>Impossible de charger votre résumé : {(summary.error as Error).message}</ErrorBox>}
  <div className="stats-grid">
   <article className="stat"><span>Opérations enregistrées</span><strong>{ops.isLoading?'…':ops.data?.length??'—'}</strong><span>20 dernières affichées</span></article>
-  <article className="stat"><span>Factures</span><strong>{summary.isLoading?'…':summary.data?.invoices??'—'}</strong><span>Création disponible prochainement</span></article>
-  <article className="stat"><span>Devis</span><strong>{summary.isLoading?'…':summary.data?.quotes??'—'}</strong><span>Création disponible prochainement</span></article>
+  <article className="stat"><span>Factures</span><strong>{summary.isLoading?'…':summary.data?.invoices??'—'}</strong><Link to="/factures" className="text-primary underline">Voir mes factures</Link></article>
+  <article className="stat"><span>Devis</span><strong>{summary.isLoading?'…':summary.data?.quotes??'—'}</strong><Link to="/devis" className="text-primary underline">Voir mes devis</Link></article>
  </div>
  <div className="section-heading"><h2>Ajouter une opération</h2></div>
  <form onSubmit={submit} className="auth-form" style={{maxWidth:'none'}} noValidate>
