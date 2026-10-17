@@ -15,6 +15,8 @@ import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as OutilsRouteImport } from './routes/outils'
 import { Route as PremiumRouteImport } from './routes/premium'
+import { Route as AuthenticatedDevisRouteImport } from './routes/_authenticated/devis'
+import { Route as AuthenticatedFacturesRouteImport } from './routes/_authenticated/factures'
 import { Route as AuthenticatedHistoriqueRouteImport } from './routes/_authenticated/historique'
 import { Route as AuthenticatedTableauDeBordRouteImport } from './routes/_authenticated/tableau-de-bord'
 import { Route as OutilOutilRouteImport } from './routes/outil.$outil'
@@ -48,6 +50,16 @@ const PremiumRoute = PremiumRouteImport.update({
   path: '/premium',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDevisRoute = AuthenticatedDevisRouteImport.update({
+  id: '/devis',
+  path: '/devis',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFacturesRoute = AuthenticatedFacturesRouteImport.update({
+  id: '/factures',
+  path: '/factures',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedHistoriqueRoute = AuthenticatedHistoriqueRouteImport.update({
   id: '/historique',
   path: '/historique',
@@ -71,6 +83,8 @@ export interface FileRoutesByFullPath {
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
+  '/devis': typeof AuthenticatedDevisRoute
+  '/factures': typeof AuthenticatedFacturesRoute
   '/historique': typeof AuthenticatedHistoriqueRoute
   '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
   '/outil/$outil': typeof OutilOutilRoute
@@ -81,6 +95,8 @@ export interface FileRoutesByTo {
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
+  '/devis': typeof AuthenticatedDevisRoute
+  '/factures': typeof AuthenticatedFacturesRoute
   '/historique': typeof AuthenticatedHistoriqueRoute
   '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
   '/outil/$outil': typeof OutilOutilRoute
@@ -93,6 +109,8 @@ export interface FileRoutesById {
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
+  '/_authenticated/devis': typeof AuthenticatedDevisRoute
+  '/_authenticated/factures': typeof AuthenticatedFacturesRoute
   '/_authenticated/historique': typeof AuthenticatedHistoriqueRoute
   '/_authenticated/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
   '/outil/$outil': typeof OutilOutilRoute
@@ -105,6 +123,8 @@ export interface FileRouteTypes {
     | '/inscription'
     | '/outils'
     | '/premium'
+    | '/devis'
+    | '/factures'
     | '/historique'
     | '/tableau-de-bord'
     | '/outil/$outil'
@@ -115,6 +135,8 @@ export interface FileRouteTypes {
     | '/inscription'
     | '/outils'
     | '/premium'
+    | '/devis'
+    | '/factures'
     | '/historique'
     | '/tableau-de-bord'
     | '/outil/$outil'
@@ -126,6 +148,8 @@ export interface FileRouteTypes {
     | '/inscription'
     | '/outils'
     | '/premium'
+    | '/_authenticated/devis'
+    | '/_authenticated/factures'
     | '/_authenticated/historique'
     | '/_authenticated/tableau-de-bord'
     | '/outil/$outil'
@@ -185,6 +209,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PremiumRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/devis': {
+      id: '/_authenticated/devis'
+      path: '/devis'
+      fullPath: '/devis'
+      preLoaderRoute: typeof AuthenticatedDevisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/factures': {
+      id: '/_authenticated/factures'
+      path: '/factures'
+      fullPath: '/factures'
+      preLoaderRoute: typeof AuthenticatedFacturesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/historique': {
       id: '/_authenticated/historique'
       path: '/historique'
@@ -210,11 +248,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDevisRoute: typeof AuthenticatedDevisRoute
+  AuthenticatedFacturesRoute: typeof AuthenticatedFacturesRoute
   AuthenticatedHistoriqueRoute: typeof AuthenticatedHistoriqueRoute
   AuthenticatedTableauDeBordRoute: typeof AuthenticatedTableauDeBordRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDevisRoute: AuthenticatedDevisRoute,
+  AuthenticatedFacturesRoute: AuthenticatedFacturesRoute,
   AuthenticatedHistoriqueRoute: AuthenticatedHistoriqueRoute,
   AuthenticatedTableauDeBordRoute: AuthenticatedTableauDeBordRoute,
 }
