@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useRouter } from '@tanstack/react-router';
+import { useRouter, type ErrorComponentProps } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { PageHeading } from '@/components/business/shared';
 import { accountQuery } from '@/lib/account-query';
 import { toolLabels } from '@/lib/account-data';
 import { fcfa } from '@/lib/tools';
-export function AccountLoadError({error}:{error:Error}){const router=useRouter();return <div className="space-y-4"><p role="alert" className="text-destructive">Impossible de charger vos données : {error.message}</p><Button variant="outline" onClick={()=>router.invalidate()}>Réessayer</Button></div>;}
+export function AccountLoadError({error}:ErrorComponentProps){const router=useRouter();return <div className="space-y-4"><p role="alert" className="text-destructive">Impossible de charger vos données : {error instanceof Error?error.message:String(error)}</p><Button variant="outline" onClick={()=>router.invalidate()}>Réessayer</Button></div>;}
 export function AccountList({userId,table}:{userId:string;table:'invoices'|'quotes'|'operations'}){
  const {data}=useSuspenseQuery(accountQuery(userId,table));const [search,setSearch]=useState('');const [filter,setFilter]=useState('');
  const docs=data.documents.filter(r=>`${r.number} ${r.client_name}`.toLowerCase().includes(search.toLowerCase()));
