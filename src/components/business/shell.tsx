@@ -9,12 +9,12 @@ import { Button } from '@/components/ui/button';
 
 const navigation = [
  {to:'/',label:'Accueil',icon:House}, {to:'/tableau-de-bord',label:'Tableau de bord',icon:LayoutDashboard},
- {to:'/outils',label:'Mes outils',icon:Grid2X2}, {to:'/historique',label:'Historique',icon:History}, {to:'/premium',label:'Offre Premium',icon:Crown},
+ {to:'/outils',label:'Mes outils',icon:Grid2X2}, {to:'/factures',label:'Mes factures',icon:Grid2X2}, {to:'/devis',label:'Mes devis',icon:Grid2X2}, {to:'/historique',label:'Historique',icon:History}, {to:'/premium',label:'Offre Premium',icon:Crown},
 ] as const;
 export function BusinessShell({children}:{children:React.ReactNode}) {
  const [open,setOpen]=useState(false);
  const path=useRouterState({select:s=>s.location.pathname});
- const current=navigation.find(item=>item.to===path)?.label ?? (path==='/connexion'?'Connexion':'Inscription');
+ const current=navigation.find(item=>item.to===path)?.label ?? (path==='/connexion'?'Connexion':path==='/inscription'?'Inscription':'Mes outils');
  return <>
   {open && <div className="fixed inset-0 z-30 bg-foreground/30" onClick={()=>setOpen(false)} aria-hidden="true" />}
   <aside className={`app-sidebar ${open?'open':''}`}>

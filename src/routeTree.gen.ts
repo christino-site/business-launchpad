@@ -12,11 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as ConnexionRouteImport } from './routes/connexion'
-import { Route as HistoriqueRouteImport } from './routes/historique'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as OutilsRouteImport } from './routes/outils'
 import { Route as PremiumRouteImport } from './routes/premium'
+import { Route as AuthenticatedDevisRouteImport } from './routes/_authenticated/devis'
+import { Route as AuthenticatedFacturesRouteImport } from './routes/_authenticated/factures'
+import { Route as AuthenticatedHistoriqueRouteImport } from './routes/_authenticated/historique'
 import { Route as AuthenticatedTableauDeBordRouteImport } from './routes/_authenticated/tableau-de-bord'
+import { Route as OutilOutilRouteImport } from './routes/outil.$outil'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,11 +33,6 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const ConnexionRoute = ConnexionRouteImport.update({
   id: '/connexion',
   path: '/connexion',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HistoriqueRoute = HistoriqueRouteImport.update({
-  id: '/historique',
-  path: '/historique',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InscriptionRoute = InscriptionRouteImport.update({
@@ -52,81 +50,119 @@ const PremiumRoute = PremiumRouteImport.update({
   path: '/premium',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDevisRoute = AuthenticatedDevisRouteImport.update({
+  id: '/devis',
+  path: '/devis',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFacturesRoute = AuthenticatedFacturesRouteImport.update({
+  id: '/factures',
+  path: '/factures',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedHistoriqueRoute = AuthenticatedHistoriqueRouteImport.update({
+  id: '/historique',
+  path: '/historique',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedTableauDeBordRoute =
   AuthenticatedTableauDeBordRouteImport.update({
     id: '/tableau-de-bord',
     path: '/tableau-de-bord',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const OutilOutilRoute = OutilOutilRouteImport.update({
+  id: '/outil/$outil',
+  path: '/outil/$outil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
-  '/historique': typeof HistoriqueRoute
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
+  '/devis': typeof AuthenticatedDevisRoute
+  '/factures': typeof AuthenticatedFacturesRoute
+  '/historique': typeof AuthenticatedHistoriqueRoute
   '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/outil/$outil': typeof OutilOutilRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
-  '/historique': typeof HistoriqueRoute
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
+  '/devis': typeof AuthenticatedDevisRoute
+  '/factures': typeof AuthenticatedFacturesRoute
+  '/historique': typeof AuthenticatedHistoriqueRoute
   '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/outil/$outil': typeof OutilOutilRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/connexion': typeof ConnexionRoute
-  '/historique': typeof HistoriqueRoute
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
+  '/_authenticated/devis': typeof AuthenticatedDevisRoute
+  '/_authenticated/factures': typeof AuthenticatedFacturesRoute
+  '/_authenticated/historique': typeof AuthenticatedHistoriqueRoute
   '/_authenticated/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/outil/$outil': typeof OutilOutilRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/connexion'
-    | '/historique'
     | '/inscription'
     | '/outils'
     | '/premium'
+    | '/devis'
+    | '/factures'
+    | '/historique'
     | '/tableau-de-bord'
+    | '/outil/$outil'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/connexion'
-    | '/historique'
     | '/inscription'
     | '/outils'
     | '/premium'
+    | '/devis'
+    | '/factures'
+    | '/historique'
     | '/tableau-de-bord'
+    | '/outil/$outil'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/connexion'
-    | '/historique'
     | '/inscription'
     | '/outils'
     | '/premium'
+    | '/_authenticated/devis'
+    | '/_authenticated/factures'
+    | '/_authenticated/historique'
     | '/_authenticated/tableau-de-bord'
+    | '/outil/$outil'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ConnexionRoute: typeof ConnexionRoute
-  HistoriqueRoute: typeof HistoriqueRoute
   InscriptionRoute: typeof InscriptionRoute
   OutilsRoute: typeof OutilsRoute
   PremiumRoute: typeof PremiumRoute
+  OutilOutilRoute: typeof OutilOutilRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -152,13 +188,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConnexionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/historique': {
-      id: '/historique'
-      path: '/historique'
-      fullPath: '/historique'
-      preLoaderRoute: typeof HistoriqueRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/inscription': {
       id: '/inscription'
       path: '/inscription'
@@ -180,6 +209,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PremiumRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/devis': {
+      id: '/_authenticated/devis'
+      path: '/devis'
+      fullPath: '/devis'
+      preLoaderRoute: typeof AuthenticatedDevisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/factures': {
+      id: '/_authenticated/factures'
+      path: '/factures'
+      fullPath: '/factures'
+      preLoaderRoute: typeof AuthenticatedFacturesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/historique': {
+      id: '/_authenticated/historique'
+      path: '/historique'
+      fullPath: '/historique'
+      preLoaderRoute: typeof AuthenticatedHistoriqueRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/tableau-de-bord': {
       id: '/_authenticated/tableau-de-bord'
       path: '/tableau-de-bord'
@@ -187,14 +237,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTableauDeBordRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/outil/$outil': {
+      id: '/outil/$outil'
+      path: '/outil/$outil'
+      fullPath: '/outil/$outil'
+      preLoaderRoute: typeof OutilOutilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDevisRoute: typeof AuthenticatedDevisRoute
+  AuthenticatedFacturesRoute: typeof AuthenticatedFacturesRoute
+  AuthenticatedHistoriqueRoute: typeof AuthenticatedHistoriqueRoute
   AuthenticatedTableauDeBordRoute: typeof AuthenticatedTableauDeBordRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDevisRoute: AuthenticatedDevisRoute,
+  AuthenticatedFacturesRoute: AuthenticatedFacturesRoute,
+  AuthenticatedHistoriqueRoute: AuthenticatedHistoriqueRoute,
   AuthenticatedTableauDeBordRoute: AuthenticatedTableauDeBordRoute,
 }
 
@@ -205,10 +268,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   ConnexionRoute: ConnexionRoute,
-  HistoriqueRoute: HistoriqueRoute,
   InscriptionRoute: InscriptionRoute,
   OutilsRoute: OutilsRoute,
   PremiumRoute: PremiumRoute,
+  OutilOutilRoute: OutilOutilRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
