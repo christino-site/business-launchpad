@@ -17,6 +17,7 @@ import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as OutilsRouteImport } from './routes/outils'
 import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as AuthenticatedTableauDeBordRouteImport } from './routes/_authenticated/tableau-de-bord'
+import { Route as OutilOutilRouteImport } from './routes/outil.$outil'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const AuthenticatedTableauDeBordRoute =
     path: '/tableau-de-bord',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const OutilOutilRoute = OutilOutilRouteImport.update({
+  id: '/outil/$outil',
+  path: '/outil/$outil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
   '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/outil/$outil': typeof OutilOutilRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
   '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/outil/$outil': typeof OutilOutilRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
   '/_authenticated/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/outil/$outil': typeof OutilOutilRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/outils'
     | '/premium'
     | '/tableau-de-bord'
+    | '/outil/$outil'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/outils'
     | '/premium'
     | '/tableau-de-bord'
+    | '/outil/$outil'
   id:
     | '__root__'
     | '/'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/outils'
     | '/premium'
     | '/_authenticated/tableau-de-bord'
+    | '/outil/$outil'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -127,6 +139,7 @@ export interface RootRouteChildren {
   InscriptionRoute: typeof InscriptionRoute
   OutilsRoute: typeof OutilsRoute
   PremiumRoute: typeof PremiumRoute
+  OutilOutilRoute: typeof OutilOutilRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -187,6 +200,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTableauDeBordRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/outil/$outil': {
+      id: '/outil/$outil'
+      path: '/outil/$outil'
+      fullPath: '/outil/$outil'
+      preLoaderRoute: typeof OutilOutilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -209,6 +229,7 @@ const rootRouteChildren: RootRouteChildren = {
   InscriptionRoute: InscriptionRoute,
   OutilsRoute: OutilsRoute,
   PremiumRoute: PremiumRoute,
+  OutilOutilRoute: OutilOutilRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
