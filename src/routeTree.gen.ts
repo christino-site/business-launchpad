@@ -12,10 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as ConnexionRouteImport } from './routes/connexion'
-import { Route as HistoriqueRouteImport } from './routes/historique'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as OutilsRouteImport } from './routes/outils'
 import { Route as PremiumRouteImport } from './routes/premium'
+import { Route as AuthenticatedHistoriqueRouteImport } from './routes/_authenticated/historique'
 import { Route as AuthenticatedTableauDeBordRouteImport } from './routes/_authenticated/tableau-de-bord'
 import { Route as OutilOutilRouteImport } from './routes/outil.$outil'
 
@@ -33,11 +33,6 @@ const ConnexionRoute = ConnexionRouteImport.update({
   path: '/connexion',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HistoriqueRoute = HistoriqueRouteImport.update({
-  id: '/historique',
-  path: '/historique',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const InscriptionRoute = InscriptionRouteImport.update({
   id: '/inscription',
   path: '/inscription',
@@ -52,6 +47,11 @@ const PremiumRoute = PremiumRouteImport.update({
   id: '/premium',
   path: '/premium',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedHistoriqueRoute = AuthenticatedHistoriqueRouteImport.update({
+  id: '/historique',
+  path: '/historique',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedTableauDeBordRoute =
   AuthenticatedTableauDeBordRouteImport.update({
@@ -68,20 +68,20 @@ const OutilOutilRoute = OutilOutilRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
-  '/historique': typeof HistoriqueRoute
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
+  '/historique': typeof AuthenticatedHistoriqueRoute
   '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
   '/outil/$outil': typeof OutilOutilRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
-  '/historique': typeof HistoriqueRoute
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
+  '/historique': typeof AuthenticatedHistoriqueRoute
   '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
   '/outil/$outil': typeof OutilOutilRoute
 }
@@ -90,10 +90,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/connexion': typeof ConnexionRoute
-  '/historique': typeof HistoriqueRoute
   '/inscription': typeof InscriptionRoute
   '/outils': typeof OutilsRoute
   '/premium': typeof PremiumRoute
+  '/_authenticated/historique': typeof AuthenticatedHistoriqueRoute
   '/_authenticated/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
   '/outil/$outil': typeof OutilOutilRoute
 }
@@ -102,20 +102,20 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/connexion'
-    | '/historique'
     | '/inscription'
     | '/outils'
     | '/premium'
+    | '/historique'
     | '/tableau-de-bord'
     | '/outil/$outil'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/connexion'
-    | '/historique'
     | '/inscription'
     | '/outils'
     | '/premium'
+    | '/historique'
     | '/tableau-de-bord'
     | '/outil/$outil'
   id:
@@ -123,10 +123,10 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/connexion'
-    | '/historique'
     | '/inscription'
     | '/outils'
     | '/premium'
+    | '/_authenticated/historique'
     | '/_authenticated/tableau-de-bord'
     | '/outil/$outil'
   fileRoutesById: FileRoutesById
@@ -135,7 +135,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ConnexionRoute: typeof ConnexionRoute
-  HistoriqueRoute: typeof HistoriqueRoute
   InscriptionRoute: typeof InscriptionRoute
   OutilsRoute: typeof OutilsRoute
   PremiumRoute: typeof PremiumRoute
@@ -165,13 +164,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConnexionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/historique': {
-      id: '/historique'
-      path: '/historique'
-      fullPath: '/historique'
-      preLoaderRoute: typeof HistoriqueRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/inscription': {
       id: '/inscription'
       path: '/inscription'
@@ -193,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PremiumRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/historique': {
+      id: '/_authenticated/historique'
+      path: '/historique'
+      fullPath: '/historique'
+      preLoaderRoute: typeof AuthenticatedHistoriqueRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/tableau-de-bord': {
       id: '/_authenticated/tableau-de-bord'
       path: '/tableau-de-bord'
@@ -211,10 +210,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedHistoriqueRoute: typeof AuthenticatedHistoriqueRoute
   AuthenticatedTableauDeBordRoute: typeof AuthenticatedTableauDeBordRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedHistoriqueRoute: AuthenticatedHistoriqueRoute,
   AuthenticatedTableauDeBordRoute: AuthenticatedTableauDeBordRoute,
 }
 
@@ -225,7 +226,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   ConnexionRoute: ConnexionRoute,
-  HistoriqueRoute: HistoriqueRoute,
   InscriptionRoute: InscriptionRoute,
   OutilsRoute: OutilsRoute,
   PremiumRoute: PremiumRoute,
